@@ -1,17 +1,26 @@
-# React + Vite
+# SVARKA – интернет-магазин сварочного оборудования
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Актуальный фронтенд для «АльфаСмарт»: React 19 + Vite 7, тёмная «промышленная» тема, умный поиск, фильтры, карточки оборудования и сервисные блоки. Репозиторий готов к автоматической публикации на GitHub Pages.
 
-Currently, two official plugins are available:
+## Скрипты
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install        # установка зависимостей
+npm run dev        # dev-сервер на http://localhost:5173
+npm run build      # продакшен-сборка в dist/
+npm run preview    # предпросмотр готовой сборки
+npm run lint       # проверка ESLint
+```
 
-## React Compiler
+## Деплой на GitHub Pages
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Каждое изменение в `main` автоматически собирается и выкатывается в ветку `gh-pages` с помощью GitHub Actions (`.github/workflows/deploy.yml`).
+- Сайт доступен по адресу `https://remontok.github.io/SVARKA/`.
+- При необходимости можно запустить деплой вручную из вкладки **Actions → Deploy to GitHub Pages → Run workflow**.
 
-## Expanding the ESLint configuration
+## Особенности
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# SVARKA
+- Vite сконфигурирован с `base: './'`, чтобы собранные ресурсы корректно работали как локально, так и на Pages.
+- Для запуска сборки в окружениях с «нестандартными» путями используется выравнивание `process.cwd()` в `vite.config.js`.
+
+Любые доработки (новые страницы, интеграции и т.п.) просто отправляйте в `main` — инфраструктура задеплоит их автоматически.*** End Patch

@@ -416,7 +416,7 @@
   background: linear-gradient(125deg, #161a24, #2a3140);
   color: #f4f4f4;
   box-shadow: 0 45px 70px rgba(7, 7, 7, 0.35);
-}
+  }
 
 .lead-section__copy h2 {
   margin-top: 0;
@@ -455,7 +455,7 @@
   margin: 0;
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.6);
-}
+  }
 /* Search panel */
 .search-panel {
   display: flex;
@@ -664,7 +664,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 12px;
-}
+  }
 
 .product-card__specs dt {
   font-size: 0.8rem;
