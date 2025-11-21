@@ -23,9 +23,11 @@ const proofMetrics = [
   { value: '320+ брендов', label: 'оригинальные аппараты и расходники' },
 ]
 
+const BASE_URL = import.meta.env.BASE_URL
+
 const heroMedia = {
   video: 'https://storage.googleapis.com/coverr-main/mp4/Welding.mp4',
-  poster: '/welding-1.jpg',
+  poster: `${BASE_URL}welding-1.jpg`,
 }
 
 const Home = ({ onSearch }) => {
