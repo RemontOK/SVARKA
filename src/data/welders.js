@@ -1,10 +1,17 @@
+// Утилита для получения правильных путей к изображениям
+const getImagePath = (path) => {
+  const baseUrl = import.meta.env.BASE_URL || '/'
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+  return `${baseUrl}${cleanPath}`
+}
+
 export const WELDER_CATEGORIES = [
   {
     id: 'electro-welding',
     title: 'Электросварочное оборудование',
     description: 'Аппараты для ручной и полуавтоматической сварки',
     accent: '#f8d34b',
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
     icon: '⚡',
     count: 70,
     subcategories: [
@@ -19,7 +26,7 @@ export const WELDER_CATEGORIES = [
     title: 'Механизация сварки',
     description: 'Оборудование для механизированной сварки',
     accent: '#f26b6b',
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
     icon: '⚙',
     count: 65,
     subcategories: [
@@ -34,7 +41,7 @@ export const WELDER_CATEGORIES = [
     title: 'Автоматизация сварки',
     description: 'Автоматизированные сварочные комплексы',
     accent: '#ffd977',
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
     icon: '◉',
     count: 67,
     subcategories: [
@@ -49,7 +56,7 @@ export const WELDER_CATEGORIES = [
     title: 'Роботизация производства',
     description: 'Роботизированные сварочные системы',
     accent: '#ff9c4a',
-    image: '/welding-4.jpg',
+    image: getImagePath('/welding-4.jpg'),
     icon: '⬢',
     count: 41,
     subcategories: [
@@ -64,7 +71,7 @@ export const WELDER_CATEGORIES = [
     title: 'Термическая резка',
     description: 'Оборудование для плазменной и лазерной резки',
     accent: '#f5b400',
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
     icon: '✂',
     count: 67,
     subcategories: [
@@ -80,7 +87,7 @@ export const WELDER_CATEGORIES = [
     title: 'Труборезы и фаскорезы',
     description: 'Оборудование для резки и обработки труб',
     accent: '#ff4d4d',
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
     icon: '╬',
     count: 105,
     subcategories: [
@@ -95,7 +102,7 @@ export const WELDER_CATEGORIES = [
     title: 'Орбитальная сварка труб',
     description: 'Специализированное оборудование для орбитальной сварки',
     accent: '#f8d34b',
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
     icon: '◯',
     count: 65,
     subcategories: [
@@ -110,7 +117,7 @@ export const WELDER_CATEGORIES = [
     title: 'Сборочно-сварочные столы',
     description: 'Столы и оборудование для сборки и сварки',
     accent: '#f26b6b',
-    image: '/welding-4.jpg',
+    image: getImagePath('/welding-4.jpg'),
     icon: '▭',
     count: 112,
     subcategories: [
@@ -125,7 +132,7 @@ export const WELDER_CATEGORIES = [
     title: 'Приварка шпилек и упоров',
     description: 'Оборудование для приварки крепежных элементов',
     accent: '#ffd977',
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
     icon: '●',
     count: 3,
     subcategories: [
@@ -138,7 +145,7 @@ export const WELDER_CATEGORIES = [
     title: 'Перемещение станков и грузов',
     description: 'Оборудование для перемещения и транспортировки',
     accent: '#ff9c4a',
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
     icon: '➤',
     count: 60,
     subcategories: [
@@ -153,7 +160,7 @@ export const WELDER_CATEGORIES = [
     title: 'Шлифовальные станки',
     description: 'Оборудование для шлифовки и обработки швов',
     accent: '#f5b400',
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
     icon: '⚒',
     count: 0,
     subcategories: [],
@@ -164,7 +171,7 @@ export const ACCESSORIES_CATEGORY = {
   id: 'accessories',
   title: 'Аксессуары и расходные материалы для сварочных аппаратов',
   description: 'Горелки, кабели, расходники и комплектующие',
-  image: '/welding-1.jpg',
+  image: getImagePath('/welding-1.jpg'),
     icon: '⚫',
   count: 419,
   subcategories: [
@@ -183,7 +190,7 @@ export const PPE_CATEGORY = {
   id: 'ppe',
   title: 'Средства индивидуальной защиты (СИЗ)',
   description: 'Средства индивидуальной защиты сварщика',
-  image: '/welding-2.jpg',
+  image: getImagePath('/welding-2.jpg'),
     icon: '⛨',
   count: 192,
   subcategories: [
@@ -220,7 +227,7 @@ export const WELDERS = [
     availability: 'Есть самовывоз',
     description: 'Бюджетный инвертор для стройки и загородных работ, уверенно держит дугу при просадке сети.',
     featureFlags: [],
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
   },
   {
     id: 'mma-315',
@@ -237,7 +244,7 @@ export const WELDERS = [
     availability: 'В пути, свободно 4 шт.',
     description: 'Промышленный источник с цифровым управлением для ответственных конструкций и судостроения.',
     featureFlags: ['pro', 'industrial'],
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
   },
   {
     id: 'mma-250',
@@ -254,7 +261,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Надежный инвертор для монтажных работ и ремонта.',
     featureFlags: [],
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
   },
   {
     id: 'mma-180',
@@ -271,7 +278,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Компактный аппарат для бытовых и профессиональных задач.',
     featureFlags: ['portable'],
-    image: '/welding-4.jpg',
+    image: getImagePath('/welding-4.jpg'),
   },
   {
     id: 'mma-160',
@@ -288,7 +295,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Бюджетный вариант для начинающих сварщиков.',
     featureFlags: [],
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
   },
   {
     id: 'mma-140',
@@ -305,7 +312,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Легкий и компактный инвертор для домашнего использования.',
     featureFlags: ['portable'],
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
   },
   // Электросварочное оборудование - TIG
   {
@@ -323,7 +330,7 @@ export const WELDERS = [
     availability: 'Предзаказ 7 дней',
     description: 'Премиальный TIG с точной настройкой дуги для тонких деталей и архитектурных швов.',
     featureFlags: ['pro', 'smart'],
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
   },
   {
     id: 'tig-160',
@@ -340,7 +347,7 @@ export const WELDERS = [
     availability: 'На складе СПб',
     description: 'Универсальный аппарат для сервисов, мясной шов по нержавейке без перегрева.',
     featureFlags: ['portable'],
-    image: '/welding-4.jpg',
+    image: getImagePath('/welding-4.jpg'),
   },
   {
     id: 'tig-250',
@@ -357,7 +364,7 @@ export const WELDERS = [
     availability: 'Под заказ',
     description: 'Профессиональный TIG для промышленного применения.',
     featureFlags: ['pro', 'industrial'],
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
   },
   {
     id: 'tig-180',
@@ -374,7 +381,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Универсальный аппарат для работы с нержавейкой и черным металлом.',
     featureFlags: ['portable'],
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
   },
   {
     id: 'tig-140',
@@ -391,7 +398,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Аппарат для сварки алюминия и цветных металлов.',
     featureFlags: [],
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
   },
   // Электросварочное оборудование - MIG/MAG
   {
@@ -409,7 +416,7 @@ export const WELDERS = [
     availability: 'В наличии на складе в Москве',
     description: 'Промышленный полуавтомат с импульсным режимом и готовыми программами для алюминия.',
     featureFlags: ['pro', 'smart', 'industrial'],
-    image: '/welding-4.jpg',
+    image: getImagePath('/welding-4.jpg'),
   },
   {
     id: 'mig-180',
@@ -426,7 +433,7 @@ export const WELDERS = [
     availability: 'Доставка за 2 дня',
     description: 'Компактный аппарат для сервисов и монтажа, работает с газом и порошковой проволокой.',
     featureFlags: ['portable'],
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
   },
   {
     id: 'mig-compact',
@@ -443,7 +450,7 @@ export const WELDERS = [
     availability: 'В наличии во всех филиалах',
     description: 'Три в одном: MIG, MMA и Lift TIG в одном корпусе для мобильных бригад.',
     featureFlags: ['portable', 'smart'],
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
   },
   {
     id: 'mig-300',
@@ -460,7 +467,7 @@ export const WELDERS = [
     availability: 'Под заказ',
     description: 'Промышленный полуавтомат для серийного производства.',
     featureFlags: ['pro', 'smart', 'industrial'],
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
   },
   {
     id: 'mig-160',
@@ -477,7 +484,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Компактный полуавтомат для небольших мастерских.',
     featureFlags: ['portable'],
-    image: '/welding-4.jpg',
+    image: getImagePath('/welding-4.jpg'),
   },
   // Термическая резка
   {
@@ -495,7 +502,7 @@ export const WELDERS = [
     availability: 'Под заказ, 5-7 дней',
     description: 'Быстрый и чистый рез до 16 мм, поддерживает механизацию и расходомер.',
     featureFlags: ['pro'],
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
   },
   {
     id: 'plasma-65',
@@ -512,7 +519,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Рациональное решение для цехов по металлу и автомастерских.',
     featureFlags: ['industrial'],
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
   },
   {
     id: 'plasma-30',
@@ -529,7 +536,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Портативный плазморез для резки до 8 мм.',
     featureFlags: ['portable'],
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
   },
   // Механизация сварки
   {
@@ -547,7 +554,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Автоматический сварочный трактор для продольных швов.',
     featureFlags: ['industrial'],
-    image: '/welding-4.jpg',
+    image: getImagePath('/welding-4.jpg'),
   },
   {
     id: 'carriage-1',
@@ -564,7 +571,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Мобильная сварочная каретка для различных задач.',
     featureFlags: ['industrial'],
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
   },
   {
     id: 'rotator-1',
@@ -581,7 +588,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Вращатель для сварки кольцевых швов труб и цилиндров.',
     featureFlags: ['industrial'],
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
   },
   // Автоматизация сварки
   {
@@ -599,7 +606,7 @@ export const WELDERS = [
     availability: 'Под заказ',
     description: 'Автоматическая сварочная колонна с ЧПУ для серийного производства.',
     featureFlags: ['pro', 'industrial'],
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
   },
   // Роботизация
   {
@@ -617,7 +624,7 @@ export const WELDERS = [
     availability: 'Под заказ',
     description: 'Промышленный робот для автоматизированной сварки.',
     featureFlags: ['pro', 'industrial'],
-    image: '/welding-4.jpg',
+    image: getImagePath('/welding-4.jpg'),
   },
   // Аксессуары
   {
@@ -635,7 +642,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Профессиональная горелка для полуавтоматической сварки.',
     featureFlags: [],
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
   },
   {
     id: 'torch-tig-1',
@@ -652,7 +659,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Горелка для аргонодуговой сварки.',
     featureFlags: [],
-    image: '/welding-2.jpg',
+    image: getImagePath('/welding-2.jpg'),
   },
   {
     id: 'wire-1',
@@ -669,7 +676,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Сварочная проволока для полуавтоматической сварки.',
     featureFlags: [],
-    image: '/welding-3.jpg',
+    image: getImagePath('/welding-3.jpg'),
   },
   // СИЗ
   {
@@ -687,7 +694,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Маска с автоматическим затемнением для комфортной работы.',
     featureFlags: [],
-    image: '/welding-4.jpg',
+    image: getImagePath('/welding-4.jpg'),
   },
   {
     id: 'gloves-1',
@@ -704,7 +711,7 @@ export const WELDERS = [
     availability: 'В наличии',
     description: 'Кожаные краги для защиты рук при сварке.',
     featureFlags: [],
-    image: '/welding-1.jpg',
+    image: getImagePath('/welding-1.jpg'),
   },
 ]
 

@@ -23,9 +23,16 @@ const proofMetrics = [
   { value: '320+ брендов', label: 'оригинальные аппараты и расходники' },
 ]
 
+// Утилита для получения правильных путей к изображениям
+const getImagePath = (path) => {
+  const baseUrl = import.meta.env.BASE_URL || '/'
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+  return `${baseUrl}${cleanPath}`
+}
+
 const heroMedia = {
   video: 'https://storage.googleapis.com/coverr-main/mp4/Welding.mp4',
-  poster: '/welding-1.jpg',
+  poster: getImagePath('/welding-1.jpg'),
 }
 
 const Home = ({ onSearch }) => {
