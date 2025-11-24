@@ -107,7 +107,7 @@ const CategoryFilters = ({ categoryId, filters, onFilterChange }) => {
 
       case 'brand':
         return (
-          <div key={filter.id} className="filter-group filter-group--inline">
+          <div key={filter.id} className="filter-group filter-group--inline filter-group--brand">
             <label className="filter-group__label">{filter.label}</label>
             <select
               className="filter-group__select"

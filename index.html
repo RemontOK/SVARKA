@@ -5,7 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <title>svarka</title>
+    <title>АльфаСмарт - Сварочное оборудование</title>
+    <script>
+      // Обработка прямых переходов и перезагрузки на GitHub Pages
+      (function() {
+        const path = window.location.pathname;
+        const repoPath = '/SVARKA';
+        const hash = window.location.hash;
+        
+        // Если мы на index.html с hash (из 404.html), обрабатываем его
+        if (path.includes('index.html') && hash && hash.startsWith('#/')) {
+          const routePath = hash.substring(1);
+          // Убеждаемся, что путь начинается с /
+          const cleanRoutePath = routePath.startsWith('/') ? routePath : '/' + routePath;
+          // Убираем hash и устанавливаем правильный путь
+          const newPath = repoPath + cleanRoutePath;
+          window.history.replaceState(null, '', newPath + window.location.search);
+          // Очищаем hash после установки пути
+          window.location.hash = '';
+        }
+        // Если мы на GitHub Pages и путь не начинается с /SVARKA (и не index.html)
+        else if (!path.includes('index.html') && path !== repoPath + '/' && !path.startsWith(repoPath + '/')) {
+          // Перенаправляем на правильный путь
+          const newPath = repoPath + (path === '/' ? '/' : path);
+          if (window.location.pathname !== newPath) {
+            window.history.replaceState(null, '', newPath + window.location.search + window.location.hash);
+          }
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
