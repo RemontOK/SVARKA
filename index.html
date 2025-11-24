@@ -5,9 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/SVARKA/vite.svg" />
-    <title>svarka</title>
-    <script type="module" crossorigin src="/SVARKA/assets/index-Cf2KqFmc.js"></script>
-    <link rel="stylesheet" crossorigin href="/SVARKA/assets/index-Bj2Lhjng.css">
+    <title>АльфаСмарт - Сварочное оборудование</title>
+    <script>
+      // Обработка прямых переходов и перезагрузки на GitHub Pages
+      (function() {
+        const path = window.location.pathname;
+        const repoPath = '/SVARKA';
+        const hash = window.location.hash;
+        
+        // Если есть hash с путем (из 404.html), используем его
+        if (hash && hash.startsWith('#/')) {
+          const routePath = hash.substring(1);
+          // Убираем hash и устанавливаем правильный путь
+          const newPath = repoPath + routePath;
+          if (window.location.pathname !== newPath) {
+            window.history.replaceState(null, '', newPath + window.location.search);
+            // Очищаем hash после установки пути
+            window.location.hash = '';
+          }
+        }
+        // Если мы на GitHub Pages и путь не начинается с /SVARKA
+        else if (path !== repoPath + '/' && !path.startsWith(repoPath + '/')) {
+          // Перенаправляем на правильный путь
+          const newPath = repoPath + (path === '/' ? '/' : path);
+          if (window.location.pathname !== newPath) {
+            window.history.replaceState(null, '', newPath + window.location.search + window.location.hash);
+          }
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/SVARKA/assets/index-9o4V283y.js"></script>
+    <link rel="stylesheet" crossorigin href="/SVARKA/assets/index-C9-MnEIs.css">
   </head>
   <body>
     <div id="root"></div>

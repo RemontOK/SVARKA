@@ -5,26 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SVARKA - АльфаСмарт</title>
     <script>
-      // GitHub Pages SPA redirect
-      const path = window.location.pathname;
-      const repoPath = '/SVARKA';
-      
-      // Если мы не на корневой странице и не на существующем файле
-      if (path.startsWith(repoPath) && path !== repoPath + '/' && !path.includes('.')) {
-        // Перенаправляем на index.html с сохранением пути
-        window.location.replace(repoPath + '/index.html' + window.location.search + window.location.hash);
-      } else if (!path.startsWith(repoPath)) {
-        // Если путь не начинается с /SVARKA, добавляем его
-        window.location.replace(repoPath + path + window.location.search + window.location.hash);
-      } else {
-        // Просто загружаем index.html
-        window.location.replace(repoPath + '/index.html');
-      }
+      // GitHub Pages SPA redirect для прямых переходов и перезагрузки
+      (function() {
+        const path = window.location.pathname;
+        const repoPath = '/SVARKA';
+        const search = window.location.search;
+        const hash = window.location.hash;
+        
+        // Проверяем, не является ли это запросом к статическому файлу
+        const isStaticFile = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|map)$/i.test(path);
+        
+        if (!isStaticFile) {
+          let targetPath = '';
+          
+          // Если путь начинается с /SVARKA
+          if (path.startsWith(repoPath)) {
+            // Если это /SVARKA или /SVARKA/, перенаправляем на index.html
+            if (path === repoPath || path === repoPath + '/') {
+              targetPath = repoPath + '/index.html';
+            } else {
+              // Сохраняем путь маршрута в hash для React Router
+              const routePath = path.replace(repoPath, '');
+              targetPath = repoPath + '/index.html#' + routePath;
+            }
+          } else if (path === '/' || path === '') {
+            // Если на корне, перенаправляем на /SVARKA/
+            targetPath = repoPath + '/';
+          } else {
+            // Иначе добавляем /SVARKA к пути
+            targetPath = repoPath + path;
+          }
+          
+          // Перенаправляем с сохранением query параметров
+          if (targetPath) {
+            window.location.replace(targetPath + search);
+          }
+        }
+      })();
     </script>
   </head>
   <body>
     <div id="root">
-      <div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: system-ui;">
+      <div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: system-ui; color: #fff; background: #0a0a0f;">
         <p>Загрузка...</p>
       </div>
     </div>
