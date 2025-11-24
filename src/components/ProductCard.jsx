@@ -1,6 +1,14 @@
+import { Link } from 'react-router-dom'
+
 const ProductCard = ({ product }) => {
   return (
-    <article className="product-card">
+    <Link to={`/product/${product.id}`} className="product-card">
+      {product.image && (
+        <div
+          className="product-card__image"
+          style={{ backgroundImage: `url(${product.image})` }}
+        />
+      )}
       <header>
         <div className="product-card__meta">
           <span className="product-card__type">{product.type}</span>
@@ -32,17 +40,33 @@ const ProductCard = ({ product }) => {
       </div>
 
       <div className="product-card__footer">
-        <div>
+        <div className="product-card__price-block">
           <p className="product-card__price">
-            {product.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' })}
+            {new Intl.NumberFormat('ru-RU', {
+              style: 'currency',
+              currency: 'RUB',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            }).format(product.price)}
           </p>
-          <p className="product-card__rating">★ {product.rating.toFixed(1)}</p>
+          <p className="product-card__rating">
+            <span className="product-card__rating-star">★</span>
+            {product.rating.toFixed(1)}
+          </p>
         </div>
-        <button className="btn btn--primary" type="button">
+        <button 
+          className="btn btn--primary product-card__button" 
+          type="button"
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            // Здесь будет логика добавления в заявку
+          }}
+        >
           Добавить в заявку
         </button>
       </div>
-    </article>
+    </Link>
   )
 }
 

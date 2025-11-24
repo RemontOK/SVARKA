@@ -9,6 +9,10 @@ if (resolvedCwd !== process.cwd()) {
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/SVARKA/',
+  base: process.env.NODE_ENV === 'production' ? '/SVARKA/' : '/',
   plugins: [react()],
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+  },
 })

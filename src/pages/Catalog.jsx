@@ -1,85 +1,132 @@
-import { useMemo, useState } from 'react'
-import SearchBar from '../components/SearchBar'
-import CategoryFilters from '../components/CategoryFilters'
-import ProductCard from '../components/ProductCard'
-import { FEATURE_FILTERS, WELDER_CATEGORIES, WELDERS } from '../data/welders'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { WELDER_CATEGORIES, ACCESSORIES_CATEGORY, PPE_CATEGORY } from '../data/welders'
 
 const Catalog = () => {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState(WELDER_CATEGORIES[0].id)
-  const [activeFilters, setActiveFilters] = useState([])
-
-  const filteredProducts = useMemo(() => {
-    return WELDERS.filter((product) => {
-      const matchesCategory = selectedCategory ? product.category === selectedCategory : true
-      const matchesSearch =
-        searchTerm.length === 0 ||
-        [product.name, product.brand, product.type, product.description]
-          .join(' ')
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      const matchesFeature =
-        activeFilters.length === 0 || activeFilters.every((flag) => product.featureFlags.includes(flag))
-
-      return matchesCategory && matchesSearch && matchesFeature
-    })
-  }, [searchTerm, selectedCategory, activeFilters])
-
-  const toggleFilter = (filterId) => {
-    setActiveFilters((prev) => (prev.includes(filterId) ? prev.filter((id) => id !== filterId) : [...prev, filterId]))
-  }
+  const location = useLocation()
 
   return (
-    <div className="catalog-page">
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">Каталог</p>
-          <h1>Подберите сварочный аппарат под задачу</h1>
-        </div>
-        <p className="section-heading__support">Склад и сервис в 3 регионах, бесплатный тест-драйв</p>
-      </div>
-
-      <SearchBar
-        label="Умный поиск"
-        supporting="Введите марку, тип или требуемый ток"
-        placeholder="Например, Fronius 200 Pulse"
-        value={searchTerm}
-        onChange={setSearchTerm}
-        quickTags={['MIG 250', 'TIG AC/DC', 'Плазморез', 'Resanta']}
-      />
-
-      <CategoryFilters
-        categories={WELDER_CATEGORIES}
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      />
-
-      <div className="filter-chips">
-        {FEATURE_FILTERS.map((filter) => {
-          const isActive = activeFilters.includes(filter.id)
-          return (
-            <button
-              key={filter.id}
-              type="button"
-              className={isActive ? 'chip chip--small chip--active' : 'chip chip--small'}
-              onClick={() => toggleFilter(filter.id)}
+    <div className="catalog-page catalog-page--grid">
+      <aside className="catalog-sidebar">
+        <nav className="catalog-nav">
+          {WELDER_CATEGORIES.map((cat) => (
+            <NavLink
+              key={cat.id}
+              to={`/catalog/${cat.id}`}
+              className={({ isActive, isPending }) =>
+                `catalog-nav__item ${isActive ? 'catalog-nav__item--active' : ''}`
+              }
             >
-              {filter.label}
-            </button>
-          )
-        })}
-      </div>
+              <span className="catalog-nav__icon">{cat.icon || '⚡'}</span>
+              <span className="catalog-nav__text">{cat.title}</span>
+              {location.pathname === `/catalog/${cat.id}` && (
+                <span className="catalog-nav__arrow">→</span>
+              )}
+            </NavLink>
+          ))}
+        </nav>
+        <div className="catalog-special-section">
+          <Link to={`/catalog/${ACCESSORIES_CATEGORY.id}`} className="catalog-category-card">
+            <div
+              className="catalog-category-card__image"
+              style={{ backgroundImage: `url(${ACCESSORIES_CATEGORY.image})` }}
+            />
+            <div className="catalog-category-card__content">
+              <h3 className="catalog-category-card__title">{ACCESSORIES_CATEGORY.title}</h3>
+            </div>
+          </Link>
+        </div>
+        <div className="catalog-special-section">
+          <Link to={`/catalog/${PPE_CATEGORY.id}`} className="catalog-category-card">
+            <div
+              className="catalog-category-card__image"
+              style={{ backgroundImage: `url(${PPE_CATEGORY.image})` }}
+            />
+            <div className="catalog-category-card__content">
+              <h3 className="catalog-category-card__title">{PPE_CATEGORY.title}</h3>
+            </div>
+          </Link>
+        </div>
+      </aside>
 
-      <p className="catalog-page__result">
-        Найдено {filteredProducts.length} моделей · показать в наличии{' '}
-        <span className="link">({filteredProducts.length})</span>
-      </p>
+      <main className="catalog-main">
+        <div className="catalog-categories">
+          {WELDER_CATEGORIES.map((category) => (
+            <Link key={category.id} to={`/catalog/${category.id}`} className="catalog-category-card">
+              <div
+                className="catalog-category-card__image"
+                style={{ backgroundImage: `url(${category.image})` }}
+              />
+              <div className="catalog-category-card__content">
+                <h3 className="catalog-category-card__title">{category.title}</h3>
+                {category.subcategories && category.subcategories.length > 0 ? (
+                  <ul className="catalog-category-card__subcategories">
+                    {category.subcategories.map((sub, idx) => (
+                      <li key={idx}>
+                        <Link
+                          to={`/catalog/${category.id}/${sub.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {sub.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="catalog-category-card__empty">
+                    <span className="link">
+                      Перейти в категорию →
+                    </span>
+                  </div>
+                )}
+              </div>
+            </Link>
+          ))}
 
-      <div className="catalog-grid">
-        {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+          <Link to={`/catalog/${ACCESSORIES_CATEGORY.id}`} className="catalog-category-card">
+            <div
+              className="catalog-category-card__image"
+              style={{ backgroundImage: `url(${ACCESSORIES_CATEGORY.image})` }}
+            />
+            <div className="catalog-category-card__content">
+              <h3 className="catalog-category-card__title">{ACCESSORIES_CATEGORY.title}</h3>
+              <ul className="catalog-category-card__subcategories">
+                {ACCESSORIES_CATEGORY.subcategories.map((sub, idx) => (
+                  <li key={idx}>
+                    <Link
+                      to={`/catalog/${ACCESSORIES_CATEGORY.id}/${sub.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {sub.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Link>
+
+          <Link to={`/catalog/${PPE_CATEGORY.id}`} className="catalog-category-card">
+            <div
+              className="catalog-category-card__image"
+              style={{ backgroundImage: `url(${PPE_CATEGORY.image})` }}
+            />
+            <div className="catalog-category-card__content">
+              <h3 className="catalog-category-card__title">{PPE_CATEGORY.title}</h3>
+              <ul className="catalog-category-card__subcategories">
+                {PPE_CATEGORY.subcategories.map((sub, idx) => (
+                  <li key={idx}>
+                    <Link
+                      to={`/catalog/${PPE_CATEGORY.id}/${sub.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {sub.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Link>
+        </div>
+      </main>
     </div>
   )
 }

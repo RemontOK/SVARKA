@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 
 const navItems = [
   { to: '/', label: 'Главная' },
@@ -10,10 +10,12 @@ const Header = () => {
   return (
     <header className="site-header site-header--minimal">
       <div className="site-header__bar site-header__bar--minimal">
-        <div className="site-header__brand">
-          <p className="site-header__title">АльфаСмарт</p>
-
-        </div>
+        <Link to="/" className="site-header__brand">
+          <div className="site-header__logo">
+            <span className="site-header__logo-top">Альфа</span>
+            <span className="site-header__logo-bottom">Смарт</span>
+          </div>
+        </Link>
 
         <nav className="site-nav site-nav--minimal">
           {navItems.map((item) => (
