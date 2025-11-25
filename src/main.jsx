@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 // Определяем basename для GitHub Pages
 // Используем BASE_URL из Vite конфигурации
@@ -26,7 +27,9 @@ if (window.location.hash && window.location.hash.startsWith('#/') && window.loca
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter basename={cleanBasename || undefined}>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
 )

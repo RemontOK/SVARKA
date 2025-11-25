@@ -1,9 +1,11 @@
 import { NavLink, Link } from 'react-router-dom'
+import ThemeToggle from './ThemeToggle'
 
 const navItems = [
   { to: '/', label: 'Главная' },
   { to: '/catalog', label: 'Каталог' },
   { to: '/services', label: 'Сервис' },
+  { to: '/about', label: 'О компании' },
 ]
 
 const Header = () => {
@@ -32,6 +34,7 @@ const Header = () => {
         </nav>
 
         <div className="site-header__cta site-header__cta--minimal">
+          <ThemeToggle />
           <span>+7 (800) 707-19-55</span>
           <button className="btn btn--outline" type="button">
             Каталог

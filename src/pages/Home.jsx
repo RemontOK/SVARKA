@@ -118,53 +118,6 @@ const Home = ({ onSearch }) => {
         ))}
       </section>
 
-      <section className="categories-showcase">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Каталог оборудования</p>
-            <h2>Полный спектр сварочных решений</h2>
-          </div>
-          <p className="section-heading__support">
-            От бытовых инверторов до промышленных роботизированных комплексов
-          </p>
-        </div>
-        <div className="categories-showcase__grid">
-          {WELDER_CATEGORIES.map((cat, index) => (
-            <Link
-              key={cat.id}
-              to={`/catalog/${cat.id}`}
-              className="categories-showcase__card"
-              style={{
-                '--accent-color': cat.accent,
-                animationDelay: `${index * 0.1}s`,
-              }}
-            >
-              <div
-                className="categories-showcase__image"
-                style={{ backgroundImage: `url(${cat.image})` }}
-              >
-                <div className="categories-showcase__overlay" />
-                <span className="categories-showcase__icon">{cat.icon}</span>
-              </div>
-              <div className="categories-showcase__content">
-                <h3 className="categories-showcase__title">{cat.title}</h3>
-                <p className="categories-showcase__description">{cat.description}</p>
-                <div className="categories-showcase__footer">
-                  <span className="categories-showcase__link">
-                    Смотреть каталог →
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <div className="categories-showcase__cta">
-          <Link to="/catalog" className="btn btn--primary btn--large">
-            Открыть полный каталог
-          </Link>
-        </div>
-      </section>
-
       <section className="field-gallery">
         <div className="section-heading">
           <div>

@@ -156,23 +156,6 @@ const CategoryView = () => {
   if (!category) {
     return (
       <div className="catalog-page catalog-page--grid">
-        <aside className="catalog-sidebar">
-          <nav className="catalog-nav">
-            {WELDER_CATEGORIES.map((cat) => (
-              <Link
-                key={cat.id}
-                to={`/catalog/${cat.id}`}
-                className={`catalog-nav__item ${categoryId === cat.id ? 'catalog-nav__item--active' : ''}`}
-              >
-                <span className="catalog-nav__icon">{cat.icon || '⚡'}</span>
-                <span className="catalog-nav__text">{cat.title}</span>
-                {location.pathname.startsWith(`/catalog/${cat.id}`) && (
-                  <span className="catalog-nav__arrow">→</span>
-                )}
-              </Link>
-            ))}
-          </nav>
-        </aside>
         <main className="catalog-main">
           <div className="category-view">
             <div className="section-heading">
@@ -183,54 +166,55 @@ const CategoryView = () => {
             </div>
           </div>
         </main>
+        <aside className="catalog-sidebar">
+          <nav className="catalog-nav">
+            {WELDER_CATEGORIES.map((cat) => (
+              <NavLink
+                key={cat.id}
+                to={`/catalog/${cat.id}`}
+                className={({ isActive }) =>
+                  `catalog-nav__item ${isActive ? 'catalog-nav__item--active' : ''}`
+                }
+              >
+                <span className="catalog-nav__icon">{cat.icon || '⚡'}</span>
+                <span className="catalog-nav__text">{cat.title}</span>
+                {location.pathname.startsWith(`/catalog/${cat.id}`) && (
+                  <span className="catalog-nav__arrow">→</span>
+                )}
+              </NavLink>
+            ))}
+            <NavLink
+              to={`/catalog/${ACCESSORIES_CATEGORY.id}`}
+              className={({ isActive }) =>
+                `catalog-nav__item ${isActive ? 'catalog-nav__item--active' : ''}`
+              }
+            >
+              <span className="catalog-nav__icon">{ACCESSORIES_CATEGORY.icon || '⚫'}</span>
+              <span className="catalog-nav__text">{ACCESSORIES_CATEGORY.title}</span>
+              {location.pathname.startsWith(`/catalog/${ACCESSORIES_CATEGORY.id}`) && (
+                <span className="catalog-nav__arrow">→</span>
+              )}
+            </NavLink>
+            <NavLink
+              to={`/catalog/${PPE_CATEGORY.id}`}
+              className={({ isActive }) =>
+                `catalog-nav__item ${isActive ? 'catalog-nav__item--active' : ''}`
+              }
+            >
+              <span className="catalog-nav__icon">{PPE_CATEGORY.icon || '🛡️'}</span>
+              <span className="catalog-nav__text">{PPE_CATEGORY.title}</span>
+              {location.pathname.startsWith(`/catalog/${PPE_CATEGORY.id}`) && (
+                <span className="catalog-nav__arrow">→</span>
+              )}
+            </NavLink>
+          </nav>
+        </aside>
       </div>
     )
   }
 
   return (
     <div className="catalog-page catalog-page--grid">
-      <aside className="catalog-sidebar">
-        <nav className="catalog-nav">
-          {WELDER_CATEGORIES.map((cat) => (
-            <NavLink
-              key={cat.id}
-              to={`/catalog/${cat.id}`}
-              className={({ isActive, isPending }) =>
-                `catalog-nav__item ${isActive ? 'catalog-nav__item--active' : ''}`
-              }
-            >
-              <span className="catalog-nav__icon">{cat.icon || '⚡'}</span>
-              <span className="catalog-nav__text">{cat.title}</span>
-              {location.pathname.startsWith(`/catalog/${cat.id}`) && (
-                <span className="catalog-nav__arrow">→</span>
-              )}
-            </NavLink>
-          ))}
-        </nav>
-        <div className="catalog-special-section">
-          <Link to={`/catalog/${ACCESSORIES_CATEGORY.id}`} className="catalog-category-card">
-            <div
-              className="catalog-category-card__image"
-              style={{ backgroundImage: `url(${ACCESSORIES_CATEGORY.image})` }}
-            />
-            <div className="catalog-category-card__content">
-              <h3 className="catalog-category-card__title">{ACCESSORIES_CATEGORY.title}</h3>
-            </div>
-          </Link>
-        </div>
-        <div className="catalog-special-section">
-          <Link to={`/catalog/${PPE_CATEGORY.id}`} className="catalog-category-card">
-            <div
-              className="catalog-category-card__image"
-              style={{ backgroundImage: `url(${PPE_CATEGORY.image})` }}
-            />
-            <div className="catalog-category-card__content">
-              <h3 className="catalog-category-card__title">{PPE_CATEGORY.title}</h3>
-            </div>
-          </Link>
-        </div>
-      </aside>
-
       <main className="catalog-main">
         <div className="category-view">
           <Breadcrumbs items={breadcrumbs} />
@@ -336,6 +320,49 @@ const CategoryView = () => {
           </div>
         </div>
       </main>
+      <aside className="catalog-sidebar">
+        <nav className="catalog-nav">
+          {WELDER_CATEGORIES.map((cat) => (
+            <NavLink
+              key={cat.id}
+              to={`/catalog/${cat.id}`}
+              className={({ isActive, isPending }) =>
+                `catalog-nav__item ${isActive ? 'catalog-nav__item--active' : ''}`
+              }
+            >
+              <span className="catalog-nav__icon">{cat.icon || '⚡'}</span>
+              <span className="catalog-nav__text">{cat.title}</span>
+              {location.pathname.startsWith(`/catalog/${cat.id}`) && (
+                <span className="catalog-nav__arrow">→</span>
+              )}
+            </NavLink>
+          ))}
+          <NavLink
+            to={`/catalog/${ACCESSORIES_CATEGORY.id}`}
+            className={({ isActive, isPending }) =>
+              `catalog-nav__item ${isActive ? 'catalog-nav__item--active' : ''}`
+            }
+          >
+            <span className="catalog-nav__icon">{ACCESSORIES_CATEGORY.icon || '⚫'}</span>
+            <span className="catalog-nav__text">{ACCESSORIES_CATEGORY.title}</span>
+            {location.pathname.startsWith(`/catalog/${ACCESSORIES_CATEGORY.id}`) && (
+              <span className="catalog-nav__arrow">→</span>
+            )}
+          </NavLink>
+          <NavLink
+            to={`/catalog/${PPE_CATEGORY.id}`}
+            className={({ isActive, isPending }) =>
+              `catalog-nav__item ${isActive ? 'catalog-nav__item--active' : ''}`
+            }
+          >
+            <span className="catalog-nav__icon">{PPE_CATEGORY.icon || '🛡️'}</span>
+            <span className="catalog-nav__text">{PPE_CATEGORY.title}</span>
+            {location.pathname.startsWith(`/catalog/${PPE_CATEGORY.id}`) && (
+              <span className="catalog-nav__arrow">→</span>
+            )}
+          </NavLink>
+        </nav>
+      </aside>
     </div>
   )
 }
