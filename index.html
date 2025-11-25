@@ -13,19 +13,19 @@
         const repoPath = '/SVARKA';
         const hash = window.location.hash;
         
-        // Если есть hash с путем (из 404.html), используем его
-        if (hash && hash.startsWith('#/')) {
+        // Если мы на index.html с hash (из 404.html), обрабатываем его
+        if (path.includes('index.html') && hash && hash.startsWith('#/')) {
           const routePath = hash.substring(1);
+          // Убеждаемся, что путь начинается с /
+          const cleanRoutePath = routePath.startsWith('/') ? routePath : '/' + routePath;
           // Убираем hash и устанавливаем правильный путь
-          const newPath = repoPath + routePath;
-          if (window.location.pathname !== newPath) {
-            window.history.replaceState(null, '', newPath + window.location.search);
-            // Очищаем hash после установки пути
-            window.location.hash = '';
-          }
+          const newPath = repoPath + cleanRoutePath;
+          window.history.replaceState(null, '', newPath + window.location.search);
+          // Очищаем hash после установки пути
+          window.location.hash = '';
         }
-        // Если мы на GitHub Pages и путь не начинается с /SVARKA
-        else if (path !== repoPath + '/' && !path.startsWith(repoPath + '/')) {
+        // Если мы на GitHub Pages и путь не начинается с /SVARKA (и не index.html)
+        else if (!path.includes('index.html') && path !== repoPath + '/' && !path.startsWith(repoPath + '/')) {
           // Перенаправляем на правильный путь
           const newPath = repoPath + (path === '/' ? '/' : path);
           if (window.location.pathname !== newPath) {
@@ -34,8 +34,8 @@
         }
       })();
     </script>
-    <script type="module" crossorigin src="/SVARKA/assets/index-9o4V283y.js"></script>
-    <link rel="stylesheet" crossorigin href="/SVARKA/assets/index-C9-MnEIs.css">
+    <script type="module" crossorigin src="/SVARKA/assets/index-CcuOGhwE.js"></script>
+    <link rel="stylesheet" crossorigin href="/SVARKA/assets/index-CiloS0eE.css">
   </head>
   <body>
     <div id="root"></div>

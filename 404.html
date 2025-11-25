@@ -25,8 +25,11 @@
               targetPath = repoPath + '/index.html';
             } else {
               // Сохраняем путь маршрута в hash для React Router
-              const routePath = path.replace(repoPath, '');
-              targetPath = repoPath + '/index.html#' + routePath;
+              // Убираем repoPath из пути, оставляя только маршрут
+              const routePath = path.substring(repoPath.length);
+              // Убеждаемся, что путь начинается с /
+              const cleanRoutePath = routePath.startsWith('/') ? routePath : '/' + routePath;
+              targetPath = repoPath + '/index.html#' + cleanRoutePath;
             }
           } else if (path === '/' || path === '') {
             // Если на корне, перенаправляем на /SVARKA/
