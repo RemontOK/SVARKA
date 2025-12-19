@@ -1,4 +1,6 @@
-const SearchBar = ({ label, supporting, value, onChange, placeholder, quickTags = [] }) => {
+import '../styles/components/SearchBar.css'
+
+const SearchBar = ({ label, supporting, value, onChange, placeholder, quickTags = [], filters }) => {
   return (
     <div className="search-panel">
       <div className="search-panel__header">
@@ -19,6 +21,11 @@ const SearchBar = ({ label, supporting, value, onChange, placeholder, quickTags 
           Найти
         </button>
       </div>
+      {filters && (
+        <div className="search-panel__filters">
+          {filters}
+        </div>
+      )}
       {quickTags.length > 0 && (
         <div className="search-panel__tags">
           {quickTags.map((tag) => (

@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
+import '../styles/components/ProductCard.css'
 
 const ProductCard = ({ product }) => {
   return (
     <Link to={`/product/${product.id}`} className="product-card">
       {product.image && (
-        <div
+        <div 
           className="product-card__image"
           style={{ backgroundImage: `url(${product.image})` }}
+          aria-label={product.name}
         />
       )}
       <header>
@@ -40,27 +42,18 @@ const ProductCard = ({ product }) => {
       </div>
 
       <div className="product-card__footer">
-        <div className="product-card__price-block">
+        <div>
           <p className="product-card__price">
-            {new Intl.NumberFormat('ru-RU', {
-              style: 'currency',
-              currency: 'RUB',
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            }).format(product.price)}
+            {product.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' })}
           </p>
-          <p className="product-card__rating">
-            <span className="product-card__rating-star">★</span>
-            {product.rating.toFixed(1)}
-          </p>
+          <p className="product-card__rating">★ {product.rating.toFixed(1)}</p>
         </div>
         <button 
-          className="btn btn--primary product-card__button" 
+          className="btn btn--primary" 
           type="button"
           onClick={(e) => {
             e.preventDefault()
-            e.stopPropagation()
-            // Здесь будет логика добавления в заявку
+            // TODO: Добавить логику добавления в заявку
           }}
         >
           Добавить в заявку

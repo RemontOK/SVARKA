@@ -1,0 +1,261 @@
+/* About Page Styles */
+
+.about-page {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.about-stats {
+  margin: 32px 0;
+}
+
+.about-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.about-stat-card {
+  padding: 32px;
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+
+.about-stat-card--yellow {
+  border-top: 4px solid var(--brand-yellow);
+}
+
+.about-stat-card--red {
+  border-top: 4px solid var(--brand-red);
+}
+
+.about-stat-card__value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.about-stat-card--yellow .about-stat-card__value {
+  color: var(--brand-yellow);
+}
+
+.about-stat-card--red .about-stat-card__value {
+  color: var(--brand-red);
+}
+
+.about-stat-card__label {
+  color: var(--text-tertiary);
+  font-size: 0.95rem;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.about-section-card {
+  padding: 32px;
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  gap: 24px;
+}
+
+.about-section-card__icon {
+  font-size: 3rem;
+  flex-shrink: 0;
+}
+
+.about-section-card__content {
+  flex: 1;
+}
+
+.about-section-card__title {
+  margin: 0 0 16px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.about-section-card__text {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.about-values {
+  margin: 48px 0;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.value-card {
+  padding: 32px;
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.value-card__icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.value-card__title {
+  margin: 0 0 12px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.value-card__description {
+  margin: 0;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.about-team {
+  margin: 48px 0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.team-member {
+  padding: 32px;
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  gap: 20px;
+}
+
+.team-member__photo {
+  flex-shrink: 0;
+}
+
+.team-member__photo-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand-yellow), var(--brand-red));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.team-member__info {
+  flex: 1;
+}
+
+.team-member__name {
+  margin: 0 0 4px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.team-member__position {
+  margin: 0 0 8px 0;
+  color: var(--brand-yellow);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.team-member__experience-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(248, 196, 0, 0.15);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--brand-yellow);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.team-member__description {
+  margin: 0;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.about-cta {
+  margin-top: 48px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .about-section-card {
+    padding: 24px;
+    flex-direction: column;
+  }
+
+  .about-section-card__icon {
+    font-size: 2.5rem;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .value-card {
+    padding: 24px;
+  }
+
+  .value-card__icon {
+    font-size: 2.5rem;
+  }
+
+  .value-card__title {
+    font-size: 1.2rem;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-member {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section-card__title {
+    font-size: 1.3rem;
+  }
+}
+

@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import SearchBar from '../components/SearchBar'
 import LeadForm from '../components/LeadForm'
+import ProductCard from '../components/ProductCard'
 import { FIELD_SHOTS } from '../data/gallery'
 import { WELDER_CATEGORIES, WELDERS } from '../data/welders'
+import '../styles/pages/Home.css'
 
 const heroHighlights = [
   { value: '1200+', label: 'аппаратов на складе' },
@@ -35,77 +35,92 @@ const heroMedia = {
   poster: getImagePath('/welding-1.jpg'),
 }
 
-const Home = ({ onSearch }) => {
-  const [heroSearch, setHeroSearch] = useState('')
+const Home = () => {
   const featuredProducts = WELDERS.slice(0, 3)
-  const heroCategories = WELDER_CATEGORIES.slice(0, 4)
-  const handleHeroSearch = (value) => {
-    setHeroSearch(value)
-    onSearch?.(value)
-  }
+  const heroProducts = WELDERS.slice(0, 6)
+  const heroCategories = WELDER_CATEGORIES.slice(0, 3)
 
   return (
     <div className="home-page">
-      <section className="hero hero--minimal">
-        <div className="hero__copy">
-          <p className="eyebrow">Каталог сварочного оборудования</p>
-          <h1>АльфаСмарт — подберите аппараты под ваши задачи</h1>
-          <p className="hero__description">
-            MIG, TIG, MMA, плазморезы и вентиляция. Мы знаем, что поставки крупного цеха — это процессы, а не красивые
-            баннеры.
-          </p>
-          <div className="hero__actions">
-            <Link className="btn btn--primary" to="/catalog">
-              Открыть каталог
-            </Link>
-            <Link className="btn btn--ghost" to="/services">
-              Помощь технолога
-            </Link>
+      {/* Баннер с акцией */}
+      <section className="hero-banner">
+        <div className="hero-banner__content">
+          <div className="hero-banner__text">
+            <p className="eyebrow">Специальное предложение</p>
+            <h1>Профессиональное сварочное оборудование</h1>
+            <p className="hero-banner__description">
+              Более 1200 аппаратов на складе. Доставка по России за 48 часов. Гарантия до 3 лет на профессиональную линейку.
+            </p>
+            <div className="hero-banner__actions">
+              <Link className="btn btn--primary btn--large" to="/catalog">
+                Смотреть каталог
+              </Link>
+              <Link className="btn btn--outline btn--large" to="/services">
+                Консультация технолога
+              </Link>
+            </div>
+            <div className="hero-banner__stats">
+              {heroHighlights.map((item) => (
+                <div key={item.label} className="hero-banner__stat">
+                  <p>{item.value}</p>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="hero__stats">
-            {heroHighlights.map((item) => (
-              <div key={item.label}>
-                <p>{item.value}</p>
-                <span>{item.label}</span>
-              </div>
-            ))}
+          <div className="hero-banner__visual">
+            <video
+              className="hero-banner__video"
+              playsInline
+              autoPlay
+              loop
+              muted
+              poster={heroMedia.poster}
+              aria-label="Промышленная сварка"
+            >
+              <source src={heroMedia.video} type="video/mp4" />
+            </video>
+            <div className="hero-banner__overlay">
+              <p>Live feed</p>
+              <h3>Тест сварки перед отгрузкой</h3>
+              <span>Проверяем каждый аппарат на нашей станции</span>
+            </div>
           </div>
         </div>
-        <div className="hero__panel">
-          <SearchBar
-            label="Быстрый поиск"
-            supporting="Ведите марку, ток, тип или конкретную задачу"
-            placeholder="Например, TIG 200 AC/DC"
-            value={heroSearch}
-            onChange={handleHeroSearch}
-            quickTags={['MIG 250', 'TIG AC/DC', 'Плазморез']}
-          />
-          <div className="hero__categories">
+      </section>
+
+      {/* Популярные категории */}
+      <section className="hero-shop">
+        <div className="hero-shop__categories">
+          <h2 className="hero-shop__section-title">Популярные категории</h2>
+          <div className="hero-shop__categories-grid">
             {heroCategories.map((category) => (
-              <Link key={category.id} to="/catalog" className="hero__category-card">
-                <span>{category.title}</span>
+              <Link key={category.id} to={`/catalog/${category.id}`} className="hero-shop__category-card">
+                <div className="hero-shop__category-icon">{category.icon}</div>
+                <h3>{category.title}</h3>
                 <p>{category.description}</p>
+                <span className="hero-shop__category-count">{category.count} товаров</span>
               </Link>
             ))}
           </div>
         </div>
-        <div className="hero__visual">
-          <video
-            className="hero__video"
-            playsInline
-            autoPlay
-            loop
-            muted
-            poster={heroMedia.poster}
-            aria-label="Промышленная сварка"
-          >
-            <source src={heroMedia.video} type="video/mp4" />
-          </video>
-          <div className="hero__visual-overlay">
-            <p>Live feed</p>
-            <h3>Тест сварки перед отгрузкой</h3>
-            <span>Проверяем каждый аппарат на нашей станции</span>
+      </section>
+
+      {/* Популярные товары */}
+      <section className="hero-products">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Популярные товары</p>
+            <h2>Хиты продаж</h2>
           </div>
+          <Link to="/catalog" className="link">
+            Весь каталог →
+          </Link>
+        </div>
+        <div className="hero-products__grid">
+          {heroProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
       </section>
 

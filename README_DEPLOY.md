@@ -31,3 +31,9 @@ GitHub Pages использует файл `404.html` для обработки 
 - React Router обрабатывает маршруты с учетом `basename="/SVARKA"`
 - Все пути к ресурсам используют `import.meta.env.BASE_URL`
 
+
+
+
+
+
+

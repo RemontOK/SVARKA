@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import LoadingSpinner from './LoadingSpinner'
+import '../styles/common.css'
 
 const Layout = () => {
   const location = useLocation()

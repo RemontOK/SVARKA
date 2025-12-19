@@ -1,11 +1,15 @@
+import '../styles/components/SortSelect.css'
+
 const SortSelect = ({ value, onChange }) => {
   const sortOptions = [
     { value: 'default', label: 'По умолчанию' },
-    { value: 'price-asc', label: 'Цена: по возрастанию' },
-    { value: 'price-desc', label: 'Цена: по убыванию' },
-    { value: 'rating-desc', label: 'Рейтинг: сначала высокий' },
-    { value: 'rating-asc', label: 'Рейтинг: сначала низкий' },
     { value: 'popularity', label: 'По популярности' },
+    { value: 'name-asc', label: 'По имени: А-Я' },
+    { value: 'name-desc', label: 'По имени: Я-А' },
+    { value: 'rating-desc', label: 'По рейтингу: сначала высокий' },
+    { value: 'rating-asc', label: 'По рейтингу: сначала низкий' },
+    { value: 'price-asc', label: 'По цене: по возрастанию' },
+    { value: 'price-desc', label: 'По цене: по убыванию' },
   ]
 
   return (
@@ -30,4 +34,8 @@ const SortSelect = ({ value, onChange }) => {
 }
 
 export default SortSelect
+
+
+
+
 

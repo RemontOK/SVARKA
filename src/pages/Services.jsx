@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { getAssetPath } from '../utils/paths'
+import '../styles/pages/Services.css'
 
 const serviceItems = [
   {

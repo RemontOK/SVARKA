@@ -73,3 +73,9 @@ GitHub Pages может обновляться с задержкой до 10 м�
 
 4. Откройте сайт: `https://remontok.github.io/SVARKA/`
 
+
+
+
+
+
+

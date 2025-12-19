@@ -1,0 +1,134 @@
+/* Footer Styles */
+
+.site-footer {
+  padding: 32px 0 64px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-tertiary);
+}
+
+.site-footer__title {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.site-footer__label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.site-footer__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.site-footer__link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  font-weight: 500;
+}
+
+.site-footer__link:hover {
+  color: var(--brand-yellow);
+}
+
+.site-footer__link--contact {
+  color: var(--text-secondary);
+}
+
+.site-footer__link--contact:hover {
+  color: var(--brand-yellow);
+}
+
+.site-footer__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.site-footer__contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.site-footer__text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.site-footer__bottom {
+  grid-column: 1 / -1;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.site-footer__copyright {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.site-footer__copyright p {
+  margin: 0;
+}
+
+.site-footer__seo-text {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Dark Theme */
+.dark-theme .site-footer__link {
+  color: var(--text-tertiary);
+}
+
+.dark-theme .site-footer__link:hover {
+  color: var(--brand-yellow);
+}
+
+.dark-theme .site-footer__link--contact {
+  color: var(--text-secondary);
+}
+
+.dark-theme .site-footer__text {
+  color: var(--text-secondary);
+}
+
+.dark-theme .site-footer__bottom {
+  border-top-color: var(--border-color);
+}
+
+.dark-theme .site-footer__copyright {
+  color: var(--text-tertiary);
+}
+
+.dark-theme .site-footer__seo-text {
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 0 32px;
+  }
+
+  .site-footer__bottom {
+    margin-top: 24px;
+    padding-top: 24px;
+  }
+}
+

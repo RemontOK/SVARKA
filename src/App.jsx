@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import './App.css'
 import Layout from './components/Layout'
 import Catalog from './pages/Catalog'
 import CategoryView from './pages/CategoryView'
@@ -8,6 +7,8 @@ import ProductView from './pages/ProductView'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import About from './pages/About'
+import Articles from './pages/Articles'
+import Reviews from './pages/Reviews'
 
 const App = () => {
   return (
@@ -20,6 +21,8 @@ const App = () => {
         <Route path="product/:productId" element={<ProductView />} />
         <Route path="services" element={<Services />} />
         <Route path="about" element={<About />} />
+        <Route path="articles" element={<Articles />} />
+        <Route path="reviews" element={<Reviews />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

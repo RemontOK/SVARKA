@@ -1,3 +1,5 @@
+import '../styles/components/LoadingSpinner.css'
+
 const LoadingSpinner = ({ size = 'medium' }) => {
   return (
     <div className={`loading-spinner loading-spinner--${size}`} aria-label="Загрузка">
@@ -7,4 +9,7 @@ const LoadingSpinner = ({ size = 'medium' }) => {
 }
 
 export default LoadingSpinner
+
+
+
 

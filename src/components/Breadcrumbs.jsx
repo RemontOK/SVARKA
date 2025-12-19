@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import '../styles/components/Breadcrumbs.css'
 
 const Breadcrumbs = ({ items }) => {
   if (!items || items.length === 0) return null
@@ -29,4 +30,7 @@ const Breadcrumbs = ({ items }) => {
 }
 
 export default Breadcrumbs
+
+
+
 
