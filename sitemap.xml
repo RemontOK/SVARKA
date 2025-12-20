@@ -73,9 +73,41 @@
   </url>
   <url>
     <loc>https://remontok.github.io/SVARKA/articles</loc>
-    <lastmod>2024-12-20</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Статьи -->
+  <url>
+    <loc>https://remontok.github.io/SVARKA/articles/kak-vybrat-svarochnyj-apparat</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://remontok.github.io/SVARKA/articles/mig-mag-svarka-osnovy</loc>
+    <lastmod>2025-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://remontok.github.io/SVARKA/articles/tig-svarka-professionalnye-sovety</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://remontok.github.io/SVARKA/articles/obsluzhivanie-svarochnogo-oborudovaniya</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://remontok.github.io/SVARKA/articles/bezopasnost-pri-svarke</loc>
+    <lastmod>2025-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://remontok.github.io/SVARKA/reviews</loc>
