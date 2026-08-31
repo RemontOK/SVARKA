@@ -1,0 +1,7 @@
+﻿User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+Host: https://asmbot.ru
+Sitemap: https://asmbot.ru/sitemap.xml
