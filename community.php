@@ -8,6 +8,9 @@
  *   GET  ?action=article&slug=<адрес>       — одна статья читателя
  *   POST ?action=submit                     — прислать свою статью (нужен вход)
  *   GET  ?action=mine                       — свои присланные статьи
+ *   GET  ?action=likes&subject=<что>        — сколько лайков и стоит ли мой
+ *   POST ?action=like {subject}             — поставить или снять лайк
+ *   GET  ?action=stats                      — счётчики по всем материалам
  *
  * Комментарий появляется сразу — иначе обсуждения не заводятся; спам держат
  * обязательный вход и ограничение частоты. Статья, наоборот, идёт через
@@ -89,6 +92,30 @@ function asmbot_author_name(array $client)
     return $at > 0 ? substr($email, 0, $at) : 'Гость';
 }
 
+/**
+ * Кто голосует.
+ *
+ * Вошедший — по своему номеру, гость — по адресу. Требовать вход ради лайка
+ * значит не получить ни одного: это самое дешёвое действие на странице, и
+ * порог перед ним должен быть нулевым. Адрес храним не как есть, а отпечатком:
+ * для «один голос в одни руки» этого хватает, а сам адрес нам не нужен.
+ */
+function asmbot_voter(?array $client)
+{
+    if ($client) {
+        return 'c:' . (int) $client['id'];
+    }
+    $ip = isset($_SERVER['REMOTE_ADDR']) ? (string) $_SERVER['REMOTE_ADDR'] : '';
+    return 'ip:' . substr(hash('sha256', $ip . '|asmbot-likes'), 0, 40);
+}
+
+/** Что лайкают: статью или отдельную реплику. */
+function asmbot_subject($value)
+{
+    $text = preg_replace('/[^a-zA-Z0-9:_\-]/', '', (string) $value);
+    return substr((string) $text, 0, 190);
+}
+
 function asmbot_rate_ok(PDO $pdo, $table, $clientId, $limit, $interval)
 {
     $stmt = $pdo->prepare(
@@ -130,7 +157,29 @@ if ($action === 'comments') {
          LIMIT 500'
     );
     $stmt->execute([$article]);
-    asmbot_ok(['comments' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Лайки к репликам — тем же запросом, иначе страница уходит в сотню
+    // мелких обращений на каждое обсуждение.
+    $voter = asmbot_voter($client);
+    $likes = $pdo->prepare(
+        'SELECT subject, COUNT(*) AS n, MAX(voter = ?) AS mine
+         FROM content_likes WHERE subject LIKE "comment:%" GROUP BY subject'
+    );
+    $likes->execute([$voter]);
+    $bySubject = [];
+    foreach ($likes as $row) {
+        $bySubject[$row['subject']] = ['n' => (int) $row['n'], 'mine' => (bool) (int) $row['mine']];
+    }
+
+    foreach ($rows as &$row) {
+        $key = 'comment:' . $row['id'];
+        $row['likes'] = $bySubject[$key]['n'] ?? 0;
+        $row['liked'] = $bySubject[$key]['mine'] ?? false;
+    }
+    unset($row);
+
+    asmbot_ok(['comments' => $rows]);
 }
 
 if ($action === 'comment') {
@@ -174,6 +223,72 @@ if ($action === 'comment') {
             'created_at' => date('Y-m-d H:i:s'),
         ],
     ]);
+}
+
+// ---------- Лайки ------------------------------------------------------------
+
+if ($action === 'likes') {
+    $subject = asmbot_subject($_GET['subject'] ?? '');
+    if ($subject === '') {
+        asmbot_fail(400, 'Не указано, что считать.');
+    }
+
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM content_likes WHERE subject = ?');
+    $stmt->execute([$subject]);
+    $count = (int) $stmt->fetchColumn();
+
+    $mine = $pdo->prepare('SELECT COUNT(*) FROM content_likes WHERE subject = ? AND voter = ?');
+    $mine->execute([$subject, asmbot_voter($client)]);
+
+    asmbot_ok(['count' => $count, 'liked' => (bool) (int) $mine->fetchColumn()]);
+}
+
+if ($action === 'like') {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        asmbot_fail(405, 'Только POST.');
+    }
+
+    $data = asmbot_input();
+    $subject = asmbot_subject($data['subject'] ?? '');
+    if ($subject === '') {
+        asmbot_fail(400, 'Не указано, что лайкать.');
+    }
+
+    $voter = asmbot_voter($client);
+
+    // Повторное нажатие снимает лайк: кнопка одна и работает в обе стороны.
+    $drop = $pdo->prepare('DELETE FROM content_likes WHERE subject = ? AND voter = ?');
+    $drop->execute([$subject, $voter]);
+    $liked = false;
+
+    if (!$drop->rowCount()) {
+        $add = $pdo->prepare('INSERT IGNORE INTO content_likes (subject, voter, client_id) VALUES (?, ?, ?)');
+        $add->execute([$subject, $voter, $client ? $client['id'] : null]);
+        $liked = true;
+    }
+
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM content_likes WHERE subject = ?');
+    $stmt->execute([$subject]);
+
+    asmbot_ok(['count' => (int) $stmt->fetchColumn(), 'liked' => $liked]);
+}
+
+if ($action === 'stats') {
+    // Список материалов показывает счётчики у каждой строки — одним запросом,
+    // а не двадцатью.
+    $likes = [];
+    foreach ($pdo->query('SELECT subject, COUNT(*) AS n FROM content_likes GROUP BY subject') as $row) {
+        $likes[$row['subject']] = (int) $row['n'];
+    }
+
+    $comments = [];
+    $sql = 'SELECT article, COUNT(*) AS n FROM article_comments WHERE status = "published" GROUP BY article';
+    foreach ($pdo->query($sql) as $row) {
+        $comments[$row['article']] = (int) $row['n'];
+    }
+
+    // Пустой массив PHP кодирует как [], а страница ждёт словарь.
+    asmbot_ok(['likes' => (object) $likes, 'comments' => (object) $comments]);
 }
 
 // ---------- Статьи читателей -------------------------------------------------

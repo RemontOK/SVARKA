@@ -175,6 +175,17 @@ $migrations = [
                 REFERENCES clients(id) ON DELETE SET NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ",
+    'content_likes' => "
+        CREATE TABLE IF NOT EXISTS content_likes (
+            id         BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            subject    VARCHAR(190) NOT NULL,
+            voter      VARCHAR(64) NOT NULL,
+            client_id  BIGINT UNSIGNED NULL,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE KEY uniq_like (subject, voter),
+            KEY idx_like_subject (subject)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ",
     'orders' => "
         CREATE TABLE IF NOT EXISTS orders (
             id            BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
